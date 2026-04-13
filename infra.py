@@ -1,8 +1,11 @@
 from pathlib import Path
 from openai import OpenAI
+import json
+
+from output_structure import base_json
 
 client = OpenAI(base_url="http://localhost:1234/v1", api_key="lm-studio")
-model_name = "berghof-nsfw-7b-i1@q4_k_s"
+model_name = "berghof-nsfw-7b-i1@q6_k_s"
 
 PROMPT_FILENAMES = {
     "system": ["system_pronpt.txt", "system_prompt.txt"],
@@ -28,14 +31,28 @@ def generate_base_config(raw_idea: str) -> str:
     # ネタ → キャラクター・ストーリーライン
     system_prompt = load_prompt("base", "system")
     user_prompt = load_prompt("base", "user")
+    output_structure_json = base_json
+
     response = client.chat.completions.create(
         model=model_name,
         messages=[
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": f"{user_prompt}\n{raw_idea}"}
-        ]
+        ],
+        response_format={
+            "type": "json_schema",
+            "json_schema": { 
+                "name": "story_schema",
+                "schema": output_structure_json
+            }
+        }
     )
-    return response.choices[0].message.content
+    content = response.choices[0].message.content
+    return (
+        content
+        if isinstance(content, str)
+        else json.dumps(content, ensure_ascii=False, indent=2)
+    )
 
 
 def generate_novel_text(story_plan: str) -> str:
@@ -50,12 +67,3 @@ def generate_novel_text(story_plan: str) -> str:
         ]
     )
     return response.choices[0].message.content
-
-
-def generate_novel(idea: str) -> tuple[str, str]:
-    """与えられたアイデアからストーリープランと小説を生成する。"""
-    plan = generate_base_config(idea)
-    print("ストーリープラン生成完了")
-    novel = generate_novel_text(plan)
-    print("小説本文生成完了")
-    return plan, novel

@@ -1,6 +1,22 @@
 import tkinter as tk
 from tkinter import scrolledtext, ttk
 
+def display_message(title: str = "メッセージ", message: str = ""):
+    """単純なメッセージを表示するためのGUIウィンドウ。"""
+    window = tk.Tk()
+    window.title(title)
+    window.geometry("400x200")
+
+    main_frame = ttk.Frame(window)
+    main_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+
+    message_label = ttk.Label(main_frame, text=message, wraplength=380, font=("Arial", 12))
+    message_label.pack(fill=tk.BOTH, expand=True)
+
+    close_btn = ttk.Button(main_frame, text="閉じる", command=window.quit)
+    close_btn.pack(pady=10)
+
+    window.mainloop()
 
 def display_novel_gui(plan: str, novel: str):
     """小説のストーリープランと本文をGUIに表示する。"""
