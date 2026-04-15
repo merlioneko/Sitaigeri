@@ -1,13 +1,14 @@
 from pathlib import Path
 from openai import OpenAI
 import json
+from repository import FolderRepository, JsonRepository
 
 from gateway import LmStudioGateway
 from repository import FolderRepository
 from output_structure import base_json
 
 server_url = "http://localhost:1234/v1"
-model_name = "berghof-nsfw-7b-i1@q6_k_s"
+model_name = JsonRepository(file_path=Path(__file__).parent / "model_name.json").read_json()["model_name"]
 
 llm_port = LmStudioGateway(url=server_url, model_name=model_name)
 
