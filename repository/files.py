@@ -2,16 +2,24 @@ from pathlib import Path
 import json
 
 class FolderRepository:
+    """指定された名前のフォルダをベースフォルダ(最基底ディレクトリ)基準で管理するリポジトリクラス。"""
     def __init__(self, folder_name: str):
-        """指定された名前のフォルダをベースフォルダ基準で管理。存在しない場合には例外を発生させる。"""
+        """指定された名前のフォルダをベースフォルダ基準で管理。存在しない場合にはFileNotFoundErrorを発生させる。"""
         self.base_folder = Path(__file__).resolve().parent
         self.folder = self.base_folder / folder_name
         if not self.folder.exists():
             raise FileNotFoundError(f"Folder '{folder_name}' not found in {self.base_folder}")
+    
+    def get(self, filename: str) -> Path:
+        """フォルダ内の指定されたファイルのPathを返す。存在しない場合にはFileNotFoundErrorを発生させる。"""
+        file_path = self.folder / filename
+        if not file_path.exists():
+            raise FileNotFoundError(f"File '{filename}' not found in folder '{self.folder}'")
+        return file_path
 
 class JsonRepository:
     def __init__(self, file_path: Path):
-        """指定されたJSONファイルを管理。存在しない場合には例外を発生させる。"""
+        """指定されたJSONファイルを管理。存在しない場合にはFileNotFoundErrorを発生させる。"""
         self.file_path = file_path
         if not self.file_path.exists():
             raise FileNotFoundError(f"JSON file '{file_path}' not found.")

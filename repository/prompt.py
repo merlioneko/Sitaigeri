@@ -6,13 +6,13 @@ class IJsonWrapper(ABC):
         pass
 
 class Prompt(IJsonWrapper):
-    def __init__(self, roll: str, prompt: str):
-        self.roll = roll
+    def __init__(self, role: str, prompt: str):
+        self.role = role
         self.prompt = prompt
 
     def to_json(self) -> dict:
         return {
-            "roll": self.roll,
+            "role": self.role,
             "prompt": self.prompt
         }
 
