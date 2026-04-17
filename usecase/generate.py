@@ -1,4 +1,4 @@
-from infra import *
+from pipline.infra import *
 
 def generate_novel(idea: str) -> tuple[str, str]:
     """与えられたアイデアからストーリープランと小説を生成する。"""
