@@ -2,7 +2,7 @@ from pathlib import Path
 import json
 from repository.files import FolderRepository, JsonRepository
 
-from gateway.gateway import LmStudioGateway
+from gateway.gateway import LmStudioGateway, TestGateway
 from repository.usecase import load_prompt
 from json_structure.novel_per_scene import base_json
 
@@ -37,7 +37,7 @@ def generate_base_config(raw_idea: str) -> str:
 
 
 def generate_novel_text(story_plan: str) -> str:
-    # ストーリーライン → 小説本文
+    """ストーリーライン → 小説本文"""
     system_prompt = load_prompt("novel", "system")
     user_prompt = load_prompt("novel", "user")
     response = llm_port.response(

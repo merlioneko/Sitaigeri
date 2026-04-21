@@ -23,3 +23,17 @@ class SystemPrompt(Prompt):
 class UserPrompt(Prompt):
     def __init__(self, prompt: str):
         super().__init__("user", prompt)
+
+class OutputJsonFormat:
+    def __init__(self, schema: dict):
+        self.format_type = "json_schema"
+        self.schema = schema
+
+    def to_json(self, name: str) -> dict:
+        return {
+            "type": self.format_type,
+            "json_schema": {
+                "name": name,
+                "schema": self.schema
+            }
+        }
