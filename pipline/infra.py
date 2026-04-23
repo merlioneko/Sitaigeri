@@ -1,6 +1,6 @@
 from pathlib import Path
 import json
-from repository.files import FolderRepository, JsonRepository
+from filereps import JsonRepository
 
 from gateway.gateway import LmStudioGateway, TestGateway
 from repository.usecase import load_prompt
