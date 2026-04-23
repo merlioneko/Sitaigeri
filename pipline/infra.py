@@ -8,9 +8,9 @@ from json_structure.novel_per_scene import base_json
 
 
 server_url = "http://localhost:1234/v1"
-model_name = JsonRepository(file_path=Path(__file__).parent / "model_name.json").read_json()["model_name"]
+model_name = JsonRepository(file_path=Path(__file__).parent.parent / "model_name.json").read_json()["model_name"]
 
-llm_port = LmStudioGateway(url=server_url, model_name=model_name)
+llm_port = TestGateway(url=server_url, model_name=model_name)
 
 
 def generate_base_config(raw_idea: str) -> str:
