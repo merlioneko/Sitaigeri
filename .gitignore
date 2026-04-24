@@ -1,3 +1,6 @@
 __pycache__
 base
 novel
+*.txt
+idea/idea.txt
+launch.json

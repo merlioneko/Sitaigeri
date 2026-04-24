@@ -1,7 +1,7 @@
 from usecase.generate import generate_novel
 from ui import *
 
-from repository.files import FolderRepository
+from filereps import FolderRepository
 
 def get_idea() -> str:
     """idea/idea.txtからアイデアを読み込む"""

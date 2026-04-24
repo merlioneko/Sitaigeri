@@ -1,4 +1,4 @@
-from repository.files import FolderRepository, JsonRepository
+from filereps import FolderRepository, JsonRepository
 
 PROMPT_FILENAMES = {
     "system": "system_prompt.txt",
