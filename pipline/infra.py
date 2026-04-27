@@ -12,8 +12,17 @@ model_name = JsonRepository(file_path=Path(__file__).parent.parent / "model_name
 
 llm_port = TestGateway(url=server_url, model_name=model_name)
 
+def generate_developped_ideas(idea: str) -> str:
+    """ユーザーのアイデアをもとに新しいアイデアを生成する"""
+    system_prompt = load_prompt("develop", "system")
+    user_prompt = load_prompt("develop", "user")
+    response = llm_port.response(
+        system=system_prompt,
+        user=f"{user_prompt}\n{idea}"
+    )
+    return response
 
-def generate_base_config(raw_idea: str) -> str:
+def generate_base_config(idea: str) -> str:
     """ネタ → キャラクター・ストーリーライン"""
     system_prompt = load_prompt("base", "system")
     user_prompt = load_prompt("base", "user")
@@ -21,7 +30,7 @@ def generate_base_config(raw_idea: str) -> str:
 
     response = llm_port.response(
         system=system_prompt,
-        user=f"{user_prompt}\n{raw_idea}",
+        user=f"{user_prompt}\n{idea}",
         output_format={
             "type": "json_schema",
             "json_schema": { 

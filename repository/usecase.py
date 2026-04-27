@@ -5,9 +5,11 @@ PROMPT_FILENAMES = {
     "user": "user_prompt.txt"
 }
 
+PROMPT_DIRNAMES = ["develop", "base", "novel"]
+
 def setup():
     """初期設定。主にプロンプトの存在確認。"""
-    for stage in ["base", "novel"]:
+    for stage in PROMPT_DIRNAMES:
         dir = FolderRepository(folder_name=stage)
         for filename in PROMPT_FILENAMES.values():
             try:
