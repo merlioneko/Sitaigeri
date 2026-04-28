@@ -12,10 +12,8 @@ def setup():
     for stage in PROMPT_DIRNAMES:
         dir = FolderRepository(folder_name=stage)
         for filename in PROMPT_FILENAMES.values():
-            try:
-                dir.get(filename)
-            except FileNotFoundError as e:
-                raise FileNotFoundError(f"Prompt file '{filename}' not found for stage '{stage}'. Please ensure it exists in the '{stage}' folder.") from e
+            if not dir.get(filename).exists():
+                dir.get(filename).open("w", encoding="utf-8").close()  # 空のファイルを作成
 
 def load_prompt(stage_folder: str, prompt_type: str) -> str:
     dir = FolderRepository(folder_name=stage_folder)

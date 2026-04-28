@@ -1,4 +1,4 @@
-from usecase.generate import generate_novel
+from usecase.generate import *
 from ui import *
 
 from filereps import FolderRepository
@@ -11,14 +11,10 @@ def get_idea() -> str:
     except FileNotFoundError as e:
         raise FileNotFoundError("Idea file not found. Please ensure 'idea/idea.txt' exists.") from e
 
-def generate_and_display(idea: str):
-    """LLMで小説を生成してGUIに表示"""
-    plan, novel = generate_novel(idea)
-    display_novel_gui(plan, novel)
 
 if __name__ == "__main__":
     try:
         idea = get_idea()
-        generate_and_display(idea)
+        generate_core(idea)
     except FileNotFoundError as e:
         display_message(title="エラー", message=e.args[0])

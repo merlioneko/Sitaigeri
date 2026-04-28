@@ -14,9 +14,9 @@ class LmStudioGateway(ILlmPort):
         self.model_name = model_name
 
     def response(self,
-                  system: (SystemPrompt| str),
+                  system: (SystemPrompt|str),
                   user: (UserPrompt|str),
-                  output_format: (dict|None) = None) -> str:
+                  output_format: (dict|None) = None) -> str|None:
         # Convert strings to Prompt objects if necessary
         if isinstance(system, str):
             system = SystemPrompt(system)
@@ -26,13 +26,13 @@ class LmStudioGateway(ILlmPort):
         if output_format is not None:
             response = self.client.chat.completions.create(
                 model=self.model_name,
-                messages=[system.to_json(),user.to_json()],
+                messages=[system.to_json(), user.to_json()],
                 response_format=output_format
             )
         else:
             response = self.client.chat.completions.create(
                 model=self.model_name,
-                messages=[system.to_json(),user.to_json()]
+                messages=[system.to_json(), user.to_json()]
             )
         
         content = response.choices[0].message.content

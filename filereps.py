@@ -16,6 +16,8 @@ class FolderRepository:
         if not file_path.exists():
             raise FileNotFoundError(f"File or folder '{filename}' not found in folder '{self.folder}'")
         return file_path
+    
+    
 
 class JsonRepository:
     def __init__(self, file_path: Path):
