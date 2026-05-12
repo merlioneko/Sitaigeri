@@ -1,5 +1,10 @@
 from pathlib import Path
 import json
+import sys
+
+# ワークスペースルートをPythonパスに追加
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
 from filereps import JsonRepository
 
 from gateway.gateway import OpenAiGateway, TestGateway
@@ -14,8 +19,8 @@ llm_port = TestGateway(url=server_url, model_name=model_name)
 
 def generate_core_elements(idea: str, element: str) -> str:
     """アイデアからコア要素を生成する関数"""
-    system_prompt = load_prompt("core_elements", "system")
-    user_prompt = load_prompt("core_elements", "user").replace("{element}", element)
+    system_prompt = load_prompt(element, "system")
+    user_prompt = load_prompt(element, "user")
     response = llm_port.response(
         system=system_prompt,
         user=f"{user_prompt}\n{idea}",

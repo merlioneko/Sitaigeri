@@ -141,7 +141,7 @@ scenes_output_format = {
 }
 
 CORE_ELEMENTS = {
-    "thema": theme_output_format,
+    "theme": theme_output_format,
     "setting": setting_output_format,
     "tone": tone_output_format,
     "characters": characters_output_format,

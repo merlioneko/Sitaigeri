@@ -1,4 +1,5 @@
 from usecase.generate import *
+from repository.usecase import setup
 from ui import *
 
 from filereps import FolderRepository
@@ -9,12 +10,13 @@ def get_idea() -> str:
         idea_file = FolderRepository(folder_name="idea").get("idea.txt")
         return idea_file.read_text(encoding="utf-8")
     except FileNotFoundError as e:
-        return e.args[0]
+        return e.__str__()
 
 
 if __name__ == "__main__":
+    setup()  # プロンプトの存在確認と空ファイルの作成
     try:
         idea = get_idea()
-        generate_core(idea)
+        print(idea)
     except FileNotFoundError as e:
-        display_message(title="エラー", message=e.args[0])
+        display_message(title="エラー", message=e.__str__())

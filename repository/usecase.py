@@ -1,11 +1,19 @@
+from pathlib import Path
+import sys
+
+# 親ディレクトリをPythonパスに追加
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
 from filereps import FolderRepository, JsonRepository
+from json_structure.core_elements import CORE_ELEMENTS
 
 PROMPT_FILENAMES = {
     "system": "system_prompt.txt",
     "user": "user_prompt.txt"
 }
 
-PROMPT_DIRNAMES = ["develop", "base", "novel"]
+USER_ELEMENTS = ["idea"]
+PROMPT_DIRNAMES = USER_ELEMENTS + list(CORE_ELEMENTS.keys())
 
 def setup():
     """初期設定。主にプロンプトの存在確認。"""

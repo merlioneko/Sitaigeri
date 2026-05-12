@@ -27,8 +27,8 @@ class OpenAiGateway(ILlmPort):
             user = UserPrompt(user)
 
         message = [
-            {"role": system.role, "content": system.prompt},
-            {"role": user.role, "content": user.prompt}
+            {"role": system.role, "content": system.contents},
+            {"role": user.role, "content": user.contents}
         ]
         
         response = self.client.chat.completions.create(
