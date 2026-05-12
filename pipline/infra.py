@@ -4,7 +4,7 @@ from filereps import JsonRepository
 
 from gateway.gateway import OpenAiGateway, TestGateway
 from repository.usecase import load_prompt
-from json_structure.core_elements import *
+from repository.json_structure.core_elements import *
 
 
 server_url = "http://localhost:1234/v1"

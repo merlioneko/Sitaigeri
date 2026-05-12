@@ -9,7 +9,7 @@ def get_idea() -> str:
         idea_file = FolderRepository(folder_name="idea").get("idea.txt")
         return idea_file.read_text(encoding="utf-8")
     except FileNotFoundError as e:
-        raise FileNotFoundError("Idea file not found. Please ensure 'idea/idea.txt' exists.") from e
+        return e.args[0]
 
 
 if __name__ == "__main__":
