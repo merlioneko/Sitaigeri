@@ -2,7 +2,7 @@ from pathlib import Path
 import json
 from filereps import JsonRepository
 
-from gateway.gateway import LmStudioGateway, TestGateway
+from gateway.gateway import OpenAiGateway, TestGateway
 from repository.usecase import load_prompt
 from json_structure.core_elements import *
 
@@ -34,32 +34,7 @@ def generate_developped_ideas(idea: str) -> str:
         system=system_prompt,
         user=f"{user_prompt}\n{idea}"
     )
-    return response
-
-def generate_core_config(idea: str) -> str:
-    """ネタ → コア設定"""
-    system_prompt = load_prompt("base", "system")
-    user_prompt = load_prompt("base", "user")
-
-    response = llm_port.response(
-        system=system_prompt,
-        user=f"{user_prompt}\n{idea}",
-        output_format=theme_output_format
-    )
-    return (
-        response if isinstance(response, str)
-        else json.dumps(response, ensure_ascii=False, indent=2)
-    )
-
-def generate_character_config(idea: str) -> str:
-    """ネタ → キャラクター設定"""
-    system_prompt = load_prompt("character", "system")
-    user_prompt = load_prompt("character", "user")
-    response = llm_port.response(
-        system=system_prompt,
-        user=f"{user_prompt}\n{idea}"
-    )
-    return response
+    return response if response else ""
 
 
 def generate_novel_text(story_plan: str) -> str:
@@ -70,4 +45,4 @@ def generate_novel_text(story_plan: str) -> str:
         system=system_prompt,
         user=f"{user_prompt}\n{story_plan}"
     )
-    return response
+    return response if response else ""

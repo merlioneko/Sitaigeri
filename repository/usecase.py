@@ -15,6 +15,7 @@ def setup():
             if not dir.get(filename).exists():
                 dir.get(filename).open("w", encoding="utf-8").close()  # 空のファイルを作成
 
+#TODO: リポジトリのメソッドにする
 def load_prompt(stage_folder: str, prompt_type: str) -> str:
     dir = FolderRepository(folder_name=stage_folder)
     return dir.get(PROMPT_FILENAMES[prompt_type]).read_text(encoding="utf-8")

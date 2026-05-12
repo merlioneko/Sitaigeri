@@ -10,10 +10,10 @@ class Prompt(IJsonWrapper):
         self.role = role
         self.prompt = prompt
 
-    def to_json(self) -> dict:
+    def to_json(self) -> dict[str, str]:
         return {
             "role": self.role,
-            "prompt": self.prompt
+            "contents": self.prompt
         }
 
 class SystemPrompt(Prompt):
@@ -29,7 +29,7 @@ class OutputJsonFormat:
         self.format_type = "json_schema"
         self.schema = schema
 
-    def to_json(self, name: str) -> dict:
+    def to_json(self, name: str) -> dict[str, object]:
         return {
             "type": self.format_type,
             "json_schema": {
