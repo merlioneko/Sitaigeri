@@ -1,7 +1,7 @@
 class Novel:
     """生成中の小説モデルクラス"""
     def __init__(self, title: str = "",
-                 thema: str = "",
+                 theme: str = "",
                  idea: str = "",
                  plan: str = "",
                  setting: str = "",
@@ -9,7 +9,7 @@ class Novel:
                  characters: list[str] = [],
                  scenes: list[str] = []):
         self.title = title
-        self.thema = thema
+        self.theme = theme
         self.idea = idea
         self.plan = plan
         self.setting = setting
@@ -24,7 +24,7 @@ class Novel:
         """小説の要素を文字列として返すためのメソッド"""
         elements = [
             f"Title: {self.title}",
-            f"Thema: {self.thema}",
+            f"Theme: {self.theme}",
             f"Idea: {self.idea}",
             f"Plan: {self.plan}",
             f"Setting: {self.setting}",

@@ -51,3 +51,7 @@ def display_novel_gui(plan: str, novel: str):
     close_btn.pack(side=tk.RIGHT, padx=5)
 
     window.mainloop()
+
+def display_novel(novel):
+    """Novelオブジェクトを受け取り、ストーリープランと小説本文を表示する関数"""
+    display_novel_gui(plan=novel.plan, novel=novel.get_body())

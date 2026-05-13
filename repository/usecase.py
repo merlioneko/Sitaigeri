@@ -15,14 +15,16 @@ PROMPT_FILENAMES = {
 USER_ELEMENTS = ["idea"]
 PROMPT_DIRNAMES = USER_ELEMENTS + list(CORE_ELEMENTS.keys())
 
+PROMPTS_DIR = "prompts/"
+
 def setup():
     """初期設定。主にプロンプトの存在確認。"""
     for stage in PROMPT_DIRNAMES:
-        dir = FolderRepository(folder_name=stage)
+        dir = FolderRepository(folder_name=PROMPTS_DIR + stage)
         for filename in PROMPT_FILENAMES.values():
             if not dir.get(filename).exists():
                 dir.get(filename).open("w", encoding="utf-8").close()  # 空のファイルを作成
 
 def load_prompt(stage_folder: str, prompt_type: str) -> str:
-    dir = FolderRepository(folder_name=stage_folder)
+    dir = FolderRepository(folder_name=PROMPTS_DIR + stage_folder)
     return dir.get(PROMPT_FILENAMES[prompt_type]).read_text(encoding="utf-8")

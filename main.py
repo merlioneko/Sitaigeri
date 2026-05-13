@@ -17,6 +17,7 @@ if __name__ == "__main__":
     setup()  # プロンプトの存在確認と空ファイルの作成
     try:
         idea = get_idea()
-        print(idea)
+        novel = generate_core(idea)
+        display_novel(novel)
     except FileNotFoundError as e:
         display_message(title="エラー", message=e.__str__())
